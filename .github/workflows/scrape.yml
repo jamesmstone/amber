@@ -9,6 +9,9 @@ on:
 jobs:
   scheduled:
     runs-on: ubuntu-latest
+    env:
+        AMBER_SITE_ID: ${{ secrets.AMBER_SITE_ID }}
+        AMBER_API_KEY: ${{ secrets.AMBER_API_KEY }}
     steps:
     - name: Check out this repo
       uses: actions/checkout@v2
