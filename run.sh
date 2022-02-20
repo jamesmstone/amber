@@ -44,7 +44,11 @@ publishDB() {
     -v"$(pwd):/wd" \
     -w /wd \
     "$dockerDatasette" \
-    publish vercel "$db" --token $VERCEL_TOKEN --project=amber
+    publish vercel "$db" \
+    --token $VERCEL_TOKEN \
+    --project=amber \
+    --install=datasette-vega \
+    --install=datasette-graphql
 }
 
 run() {
