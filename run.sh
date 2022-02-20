@@ -20,13 +20,6 @@ makeDB() {
     -v"$(pwd):/wd" \
     -w /wd \
     "$dockerGitHistory" file "$db" events.json # --id id
-
-  docker run \
-    -u"$(id -u):$(id -g)" \
-    -v"$(pwd):/wd" \
-    -w /wd \
-    "$dockerSQLUtil" extract "$db" item sourceOrg sourceFeed
-
 }
 
 commitDB() {
