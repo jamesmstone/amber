@@ -23,6 +23,7 @@ jobs:
         "https://api.amber.com.au/v1/sites/$AMBER_SITE_ID/usage?startDate=$d&endDate=$d&resolution=30" \
         -H "Accept: application/json" \
         -H "Authorization: Bearer $AMBER_API_KEY" > events.json
+        cat events.json
 
     - name: Commit and push if it changed
       run: |-
