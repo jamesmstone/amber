@@ -3,8 +3,8 @@ name: Scrape latest data
 on:
   push:
   workflow_dispatch:
-  schedule:
-    - cron:  '0 0 * * *'
+#   schedule:
+#     - cron:  '0 0 * * *' # remove cron job as no lnger with amber for elec
 
 jobs:
   scheduled:
