@@ -1,0 +1,31 @@
+name: Build database
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  NIX_CONFIG: "accept-flake-config = true"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: native
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          # git-history replays every revision of events.json.
+          fetch-depth: 0
+
+      - name: Build database
+        run: nix develop -c ./run.sh build
+
+      - name: Publish database
+        run: install -Dm644 events.db /var/lib/datasette-sites/amber/events.db
+
+      - name: Commit database
+        run: ./run.sh commit-db
