@@ -4,17 +4,6 @@ set -euo pipefail
 db="events.db"
 dbBranch="db"
 
-fetch() {
-  local d
-  d=$(date --date=yesterday +'%Y-%m-%d')
-  curl -fsS \
-    "https://api.amber.com.au/v1/sites/${AMBER_SITE_ID}/usage?startDate=${d}&endDate=${d}&resolution=30" \
-    -H "Accept: application/json" \
-    -H "Authorization: Bearer ${AMBER_API_KEY}" \
-    -o events.json
-  cat events.json
-}
-
 # Replays every revision of events.json, so it needs the full git history.
 build() {
   rm -f "$db"
@@ -42,11 +31,10 @@ commitDB() {
 }
 
 case "${1:-build}" in
-fetch) fetch ;;
 build) build ;;
 commit-db) commitDB ;;
 *)
-  echo "usage: $0 {fetch|build|commit-db}" >&2
+  echo "usage: $0 {build|commit-db}" >&2
   exit 2
   ;;
 esac
